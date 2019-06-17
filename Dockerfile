@@ -44,6 +44,8 @@ RUN cd /home/neuro/nighres && \
     mkdir /home/neuro/notebooks && \
     chown -R neuro /home/neuro
 
+RUN python3 -m pip install dask
+
 COPY docker/jupyter_notebook_config.py /etc/jupyter/
 
 EXPOSE 8888
