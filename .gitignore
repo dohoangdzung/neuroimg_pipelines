@@ -36,3 +36,5 @@ doc/gen_modules
 doc/modules/generated
 
 nighres_examples
+.idea/
+data/

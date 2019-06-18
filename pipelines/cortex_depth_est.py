@@ -1,9 +1,9 @@
 import nighres
 import os
 
-def estimate(classified_tissue):
+def estimate(classified_tissue, overwrite=False):
 
-    out_dir = os.path.join(os.getcwd(),'cortical_depth_estimation')
+    out_dir = os.path.join(os.getcwd(),'data/cortical_depth_estimation')
 
     segmentation = classified_tissue['segmentation']
     boundary_dist = classified_tissue['distance']
@@ -22,6 +22,7 @@ def estimate(classified_tissue):
                                                 maximum_label=max_labels,
                                                 extracted_region='left_cerebrum',
                                                 save_data=True,
+                                                overwrite=overwrite,
                                                 file_name='sub001_sess1_left_cerebrum',
                                                 output_dir=out_dir)
 
@@ -32,6 +33,7 @@ def estimate(classified_tissue):
         csf_image=cortex['background_proba'],
         normalize_probabilities=True,
         save_data=True,
+        overwrite=overwrite,
         file_name="sub001_sess1_left_cerebrum",
         output_dir=out_dir)
 
@@ -40,6 +42,7 @@ def estimate(classified_tissue):
         outer_levelset=cruise['cgb'],
         n_layers=4,
         save_data=True,
+        overwrite=overwrite,
         file_name="sub001_sess1_left_cerebrum",
         output_dir=out_dir)
 

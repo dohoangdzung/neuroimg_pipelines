@@ -5,7 +5,7 @@ import nighres
 
 dataset = []
 
-in_dir = os.path.join(os.getcwd(), 'data_sets/')
+in_dir = os.path.join(os.getcwd(), 'data/data_sets/')
 data = nighres.data.download_7T_TRT(in_dir, subject_id='sub001_sess1')
 dataset.append(data)
 
