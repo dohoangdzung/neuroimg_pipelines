@@ -12,7 +12,7 @@ c.NotebookApp.ip = '*'
 c.NotebookApp.port = 8888
 c.NotebookApp.open_browser = False
 c.NotebookApp.token = ''
-c.NotebookApp.notebook_dir = '/home/neuro/notebooks/'
+c.NotebookApp.notebook_dir = '/home/neuro/'
 
 # Generate a self-signed certificate
 if 'GEN_CERT' in os.environ:

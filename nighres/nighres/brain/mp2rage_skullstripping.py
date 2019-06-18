@@ -11,7 +11,7 @@ from ..utils import _output_dir_4saving, _fname_4saving, \
 def mp2rage_skullstripping(second_inversion, t1_weighted=None, t1_map=None,
                            skip_zero_values=True, topology_lut_dir=None,
                            save_data=False, overwrite=False, output_dir=None,
-                           file_name=None, return_filename=False):
+                           file_name=None):
     """ MP2RAGE skull stripping
 
     Estimates a brain mask from MRI data acquired with the MP2RAGE sequence.
@@ -42,8 +42,6 @@ def mp2rage_skullstripping(second_inversion, t1_weighted=None, t1_map=None,
     file_name: str, optional
         Desired base name for output files with file extension
         (suffixes will be added)
-    return_filename: bool, optional
-        Return filename instead of object
 
     Returns
     ----------
@@ -72,10 +70,6 @@ def mp2rage_skullstripping(second_inversion, t1_weighted=None, t1_map=None,
     """
 
     print('\nMP2RAGE Skull Stripping')
-
-    # Check data file parameters
-    if not save_data and return_filename:
-        raise ValueError('save_data must be True if return_filename is True ')
 
     # check topology lut dir and set default if not given
     topology_lut_dir = _check_topology_lut_dir(topology_lut_dir)
@@ -113,22 +107,14 @@ def mp2rage_skullstripping(second_inversion, t1_weighted=None, t1_map=None,
             and os.path.isfile(inv2_file) :
             
             print("skip computation (use existing results)")
-            if return_filename:
-                output = {
-                    'brain_mask': mask_file,
-                    'inv2_masked': inv2_file,
-                    't1w_masked': t1w_file,
-                    't1map_masked': t1map_file
-                    }
-            else:
-                output = {'brain_mask': load_volume(mask_file),
-                        'inv2_masked': load_volume(inv2_file)}
-                if t1w_file is not None:
-                    if os.path.isfile(t1w_file) :
-                        output['t1w_masked'] = load_volume(t1w_file)
-                if t1map_file is not None:
-                    if os.path.isfile(t1map_file) :
-                        output['t1map_masked'] = load_volume(t1map_file)
+            output = {'brain_mask': load_volume(mask_file), 
+                    'inv2_masked': load_volume(inv2_file)}
+            if t1w_file is not None:
+                if os.path.isfile(t1w_file) :     
+                    output['t1w_masked'] = load_volume(t1w_file)
+            if t1map_file is not None:
+                if os.path.isfile(t1map_file) :     
+                    output['t1map_masked'] = load_volume(t1map_file)
             return output
 
     # start virtual machine, if not already running
@@ -198,10 +184,7 @@ def mp2rage_skullstripping(second_inversion, t1_weighted=None, t1_map=None,
     inv2_hdr['cal_max'] = np.nanmax(mask_data)
     mask = nb.Nifti1Image(mask_data, inv2_affine, inv2_hdr)
 
-    if return_filename:
-        outputs = {'brain_mask': mask_file, 'inv2_masked': inv2_file}
-    else:
-        outputs = {'brain_mask': mask, 'inv2_masked': inv2_masked}
+    outputs = {'brain_mask': mask, 'inv2_masked': inv2_masked}
 
     if save_data:
         save_volume(inv2_file, inv2_masked)
@@ -213,11 +196,7 @@ def mp2rage_skullstripping(second_inversion, t1_weighted=None, t1_map=None,
                                 dtype=np.float32), dimensions, 'F')
         t1w_hdr['cal_max'] = np.nanmax(t1w_masked_data)
         t1w_masked = nb.Nifti1Image(t1w_masked_data, t1w_affine, t1w_hdr)
-
-        if return_filename:
-            outputs['t1w_masked'] = t1w_file
-        else:
-            outputs['t1w_masked'] = t1w_masked
+        outputs['t1w_masked'] = t1w_masked
 
         if save_data:
             save_volume(t1w_file, t1w_masked)
@@ -229,11 +208,7 @@ def mp2rage_skullstripping(second_inversion, t1_weighted=None, t1_map=None,
         t1map_hdr['cal_max'] = np.nanmax(t1map_masked_data)
         t1map_masked = nb.Nifti1Image(t1map_masked_data, t1map_affine,
                                       t1map_hdr)
-
-        if return_filename:
-            outputs['t1map_masked'] = t1map_file
-        else:
-            outputs['t1map_masked'] = t1map_masked
+        outputs['t1map_masked'] = t1map_masked
 
         if save_data:
             save_volume(t1map_file, t1map_masked)

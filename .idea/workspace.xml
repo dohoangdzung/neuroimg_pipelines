@@ -2,8 +2,145 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27bbd1ed-da3a-4530-89d6-cb6578b13afb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/neuroimg_pipelines.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/neuroimg_pipelines.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pipelines/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pipelines/cortex_depth_est.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pipelines/tissue_classification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANIFEST.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build_local_nighresjava.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cbstools-lib-files.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/jupyter_notebook_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/test_docker_trusty.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imcntk-lib-files.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_amygdalaL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_amygdalaL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_amygdalaR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_amygdalaR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_arteries.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_arteries.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_background.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_brainstem.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_brainstem.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_caudateL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_caudateL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_caudateR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_caudateR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebellum_gm.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebellum_gm.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebellum_wm.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebellum_wm.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebrum_gmL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebrum_gmL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebrum_gmR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebrum_gmR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebrum_wmL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebrum_wmL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebrum_wmR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_cerebrum_wmR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_dura_mater.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_dura_mater.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_globus_pallidusL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_globus_pallidusL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_globus_pallidusR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_globus_pallidusR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_hippocampusL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_hippocampusL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_hippocampusR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_hippocampusR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_putamenL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_putamenL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_putamenR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_putamenR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_sinuses.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_sinuses.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_sulcal_csf.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_sulcal_csf.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_thalamusL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_thalamusL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_thalamusR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_thalamusR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_ventricle3.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_ventricle3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_ventricle4.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_ventricle4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_ventricleL.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_ventricleL.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_ventricleR.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/atlas_ventricleR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-3.0.1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-3.0.2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-3.0.3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-3.0.4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-3.0.4b.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-3.0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-experimental.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-quant-3.0.5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/brain-atlas-quant-3.0.8.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/topology-atlas.raw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/brain-segmentation-prior3.0/topology-atlas.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/topology_lut/critical186LUT.raw.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/topology_lut/critical266LUT.raw.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/topology_lut/critical618LUT.raw.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/topology_lut/critical626LUT.raw.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/topology_lut/critical66LUT.raw.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/atlases/topology_lut/criticalWCLUT.raw.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/brain/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/brain/extract_brain_region.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/brain/filter_stacking.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/brain/mgdm_segmentation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/brain/mp2rage_dura_estimation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/brain/mp2rage_skullstripping.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/cortex/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/cortex/cruise_cortex_extraction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/data/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/data/download_data.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/filtering/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/filtering/filter_ridge_structures.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/filtering/recursive_ridge_diffusion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/filtering/total_variation_filtering.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/global_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/intensity/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/intensity/background_estimation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/intensity/flash_t2s_fitting.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/intensity/intensity_propagation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/intensity/lcpca_denoising.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/intensity/mp2rage_t1_mapping.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/intensity/phase_unwrapping.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/io/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/io/io_mesh.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/io/io_volume.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/laminar/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/laminar/laminar_iterative_smoothing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/laminar/profile_sampling.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/laminar/volumetric_layering.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/microscopy/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/microscopy/mgdm_cells.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/registration/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/registration/apply_coordinate_mappings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/registration/embedded_antsreg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/registration/generate_coordinate_mapping.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/registration/simple_align.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/shape/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/shape/levelset_fusion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/shape/topology_correction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/statistics/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/statistics/segmentation_statistics.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/surface/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/surface/levelset_to_mesh.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/surface/levelset_to_probability.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/surface/probability_to_levelset.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/surface/surface_mesh_mapping.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nighres/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/travis/make_dist.sh" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,44 +152,126 @@
     <session id="73486372">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="Dockerfile" value="1" />
+          <entry key="Dockerfile" value="11" />
+          <entry key="py" value="23" />
+          <entry key="sh" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dockerfile" value="1" />
+          <entry key="Bash" value="1" />
+          <entry key="Dockerfile" value="11" />
+          <entry key="Python" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Dockerfile" value="20" />
+          <entry key="Dockerfile" value="264" />
+          <entry key="py" value="674" />
+          <entry key="sh" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dockerfile" value="20" />
+          <entry key="Bash" value="1" />
+          <entry key="Dockerfile" value="264" />
+          <entry key="Python" value="674" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pipelines/tissue_classification.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+                <marker date="1560890671536" expanded="true" signature="54:56" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.7/site-packages/nighres/brain/mgdm_segmentation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="358" column="36" lean-forward="true" selection-start-line="358" selection-start-column="36" selection-end-line="358" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nighres/Dockerfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/run.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pipelines/cortex_depth_est.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+                <marker date="1560891051588" expanded="true" signature="58:60" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="46" column="14" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
+            <state relative-caret-position="120">
+              <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>doc</find>
+      <find>Assembling...</find>
+      <find>overwrite was set to False</find>
+      <find>nighresjava</find>
+      <find>/home/neuro/notebooks</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,7 +279,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/pipelines/run.py" />
+        <option value="$PROJECT_DIR$/pipelines/__init__.py" />
+        <option value="$PROJECT_DIR$/build.sh" />
+        <option value="$USER_HOME$/.Trash/Dockerfile" />
         <option value="$PROJECT_DIR$/Dockerfile" />
+        <option value="$PROJECT_DIR$/nighres/Dockerfile" />
+        <option value="$PROJECT_DIR$/nighres/docker/jupyter_notebook_config.py" />
+        <option value="$PROJECT_DIR$/pipelines/tissue_classification.py" />
+        <option value="$PROJECT_DIR$/pipelines/cortex_depth_est.py" />
+        <option value="$PROJECT_DIR$/run.py" />
       </list>
     </option>
   </component>
@@ -69,6 +297,7 @@
     <option name="width" value="1440" />
     <option name="height" value="877" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -91,6 +320,12 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/pipelines" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -102,6 +337,83 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager" selected="Python.run">
+    <configuration name="cortex_depth_est" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="neuroimg_pipelines" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pipelines" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pipelines/cortex_depth_est.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="neuroimg_pipelines" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pipelines" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tissue_classification" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="neuroimg_pipelines" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pipelines" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pipelines/tissue_classification.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.run" />
+      <item itemvalue="Python.cortex_depth_est" />
+      <item itemvalue="Python.tissue_classification" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.run" />
+        <item itemvalue="Python.tissue_classification" />
+        <item itemvalue="Python.cortex_depth_est" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -120,21 +432,21 @@
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.23184714" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Python Console" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -144,10 +456,137 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/nighres/utils.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nighres/global_settings.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nighres/brain/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nighres/shape/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nighres/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pipelines/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="172" lean-forward="true" selection-start-line="172" selection-end-line="172" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nighres/brain/mp2rage_skullstripping.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="136" selection-start-line="136" selection-end-line="136" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.Trash/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nighres/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3">
+          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nighres/docker/jupyter_notebook_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nighres/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="46" column="14" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
+        <state relative-caret-position="120">
+          <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pipelines/tissue_classification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1560890671536" expanded="true" signature="54:56" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/nighres/brain/mgdm_segmentation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="358" column="36" lean-forward="true" selection-start-line="358" selection-start-column="36" selection-end-line="358" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/nighres/cortex/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/nighres/cortex/cruise_cortex_extraction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pipelines/cortex_depth_est.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <marker date="1560891051588" expanded="true" signature="58:60" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
