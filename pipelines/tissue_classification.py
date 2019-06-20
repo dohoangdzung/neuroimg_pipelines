@@ -1,6 +1,6 @@
 import nighres
 
-def classify(subject, out_dir, save_data=True, overwrite=False, return_filename=True):
+def classify(subject, subject_id, out_dir, save_data=True, overwrite=False, return_filename=True):
 
     skullstripping_results = nighres.brain.mp2rage_skullstripping(
                                                 second_inversion=subject['inv2'],
@@ -8,7 +8,7 @@ def classify(subject, out_dir, save_data=True, overwrite=False, return_filename=
                                                 t1_map=subject['t1map'],
                                                 save_data=save_data,
                                                 overwrite=overwrite,
-                                                file_name='sub001_sess1',
+                                                file_name=subject_id,
                                                 output_dir=out_dir,
                                                 return_filename=return_filename)
 
@@ -19,7 +19,7 @@ def classify(subject, out_dir, save_data=True, overwrite=False, return_filename=
         contrast_type2="T1map7T",
         save_data=save_data,
         overwrite=overwrite,
-        file_name="sub001_sess1",
+        file_name=subject_id,
         output_dir=out_dir,
         return_filename=return_filename)
 

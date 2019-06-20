@@ -1,7 +1,7 @@
 import nighres
 import os
 
-def estimate(classified_tissue, out_dir, save_data=True, overwrite=False):
+def estimate(classified_tissue, subject_id, out_dir, save_data=True, overwrite=False):
 
     segmentation = classified_tissue['segmentation']
     boundary_dist = classified_tissue['distance']
@@ -21,7 +21,7 @@ def estimate(classified_tissue, out_dir, save_data=True, overwrite=False):
                                                 extracted_region='left_cerebrum',
                                                 save_data=save_data,
                                                 overwrite=overwrite,
-                                                file_name='sub001_sess1_left_cerebrum',
+                                                file_name='{0}_left_cerebrum'.format(subject_id),
                                                 output_dir=out_dir)
 
     cruise = nighres.cortex.cruise_cortex_extraction(
@@ -32,7 +32,7 @@ def estimate(classified_tissue, out_dir, save_data=True, overwrite=False):
         normalize_probabilities=True,
         save_data=save_data,
         overwrite=overwrite,
-        file_name="sub001_sess1_left_cerebrum",
+        file_name="{0}_left_cerebrum".format(subject_id),
         output_dir=out_dir)
 
     depth = nighres.laminar.volumetric_layering(
@@ -41,7 +41,7 @@ def estimate(classified_tissue, out_dir, save_data=True, overwrite=False):
         n_layers=4,
         save_data=save_data,
         overwrite=overwrite,
-        file_name="sub001_sess1_left_cerebrum",
+        file_name="{0}_left_cerebrum".format(subject_id),
         output_dir=out_dir)
 
     return depth
