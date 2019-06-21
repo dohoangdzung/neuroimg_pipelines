@@ -28,7 +28,7 @@ def skull_stripping(subject, subject_id, out_dir, save_data=True, overwrite=Fals
                                                 output_dir=out_dir,
                                                 return_filename=return_filename)
 
-    return skullstripping_results, subject_id
+    return skullstripping_results
 
 
 def segmentation(skullstripped, subject_id, out_dir, save_data=True, overwrite=False, return_filename=True):

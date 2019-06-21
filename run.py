@@ -3,6 +3,8 @@ import pipelines.tissue_classification as tc
 import pipelines.cortex_depth_est as cde
 import nighres
 import dask.bag as db
+from dask.diagnostics import Profiler, ResourceProfiler, CacheProfiler
+from dask.diagnostics import visualize
 
 DATA_DIR = 'data/data_sets/'
 OUTPUT_DIR = 'data/output/'
@@ -69,3 +71,6 @@ classification = db.from_sequence(get_data()) \
 #     .map(lambda tuple: cruise_extraction(tuple[0], tuple[1])) \
 #     .map(lambda tuple: volumetric_layering(tuple[0], tuple[1]))
 
+with Profiler() as prof, ResourceProfiler(dt=0.25) as rprof, CacheProfiler() as cprof:
+    res = classification.compute()
+visualize([prof, rprof, cprof])
