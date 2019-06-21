@@ -1,6 +1,22 @@
 import nighres
 
-def classify(subject, subject_id, out_dir, save_data=True, overwrite=False, return_filename=True):
+def combine(subject, subject_id, out_dir, save_data=True, overwrite=False, return_filename=True):
+
+    skullstripping_results = skull_stripping(subject, subject_id, out_dir,
+                                             save_data=save_data,
+                                             overwrite=overwrite,
+                                             return_filename=return_filename)
+    mgdm_results = segmentation(skullstripping_results,
+                                subject_id,
+                                out_dir,
+                                save_data=save_data,
+                                overwrite=overwrite,
+                                return_filename=return_filename)
+
+    return mgdm_results
+
+
+def skull_stripping(subject, subject_id, out_dir, save_data=True, overwrite=False, return_filename=True):
 
     skullstripping_results = nighres.brain.mp2rage_skullstripping(
                                                 second_inversion=subject['inv2'],
@@ -12,10 +28,15 @@ def classify(subject, subject_id, out_dir, save_data=True, overwrite=False, retu
                                                 output_dir=out_dir,
                                                 return_filename=return_filename)
 
+    return skullstripping_results, subject_id
+
+
+def segmentation(skullstripped, subject_id, out_dir, save_data=True, overwrite=False, return_filename=True):
+
     mgdm_results = nighres.brain.mgdm_segmentation(
-        contrast_image1=skullstripping_results['t1w_masked'],
+        contrast_image1=skullstripped['t1w_masked'],
         contrast_type1="Mp2rage7T",
-        contrast_image2=skullstripping_results['t1map_masked'],
+        contrast_image2=skullstripped['t1map_masked'],
         contrast_type2="T1map7T",
         save_data=save_data,
         overwrite=overwrite,
