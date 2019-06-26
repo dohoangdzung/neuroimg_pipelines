@@ -106,7 +106,7 @@ class CortexDepthEst(Classification):
         if split:
             self.bag = self.bag.map(lambda result: self.extract_region(result[0], result[1])) \
                 .map(lambda result: self.cruise_extraction(result[0], result[1])) \
-                .map(lambda result: self.cruise_extraction(result[0], result[1]))
+                .map(lambda result: self.volumetric_layering(result[0], result[1]))
 
         else:
             self.bag = self.bag.map(lambda subject: self.combine(subject, subject['subject_id']))
