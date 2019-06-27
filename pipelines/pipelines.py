@@ -1,6 +1,8 @@
 import os
 import nighres
+import dask
 import dask.bag as db
+import dask.delayed as delayed
 from abc import ABC, abstractmethod
 
 
@@ -17,6 +19,7 @@ class Pipeline(ABC):
         self.overwrite = overwrite
         self.return_filename = return_filename
         self.bag = db.from_sequence(self.subjects)
+        self.delays = {}
 
     @abstractmethod
     def combine(self, subject, subject_id):
@@ -31,8 +34,12 @@ class Pipeline(ABC):
         """
         return None
 
-    def compute(self):
+    def compute_bag(self):
         return self.bag.compute()
+
+    def compute_delayed(self):
+        delays = self.delays.values()
+        return dask.compute(*delays)
 
 
 class Classification(Pipeline):
@@ -41,6 +48,16 @@ class Classification(Pipeline):
     def __init__(self, subjects, split=True, save_data=True, overwrite=False, return_filename=True):
 
         Pipeline.__init__(self, subjects, split, save_data, overwrite, return_filename)
+
+        # Init dask.delayed
+        for subject in subjects:
+            subject_id = subject['subject_id']
+
+            stripping = delayed(self.skull_stripping)(subject, subject_id)
+            segmented = delayed(self.segmentation)(stripping, subject_id)
+            self.delays[subject_id] = segmented
+
+        # Init dask.bag
         if split:
             self.bag = self.bag.map(lambda subject: self.skull_stripping(subject, subject['subject_id'])) \
                 .map(lambda result: self.segmentation(result[0], result[1]))
@@ -103,6 +120,18 @@ class CortexDepthEst(Classification):
 
     def __init__(self, subjects, split=True, save_data=True, overwrite=False, return_filename=True):
         Classification.__init__(self, subjects, split, save_data, overwrite, return_filename)
+
+        # Init dask.delayed
+        for subject in subjects:
+            subject_id = subject['subject_id']
+
+            classified = self.delays[subject_id]
+            cortex = delayed(self.extract_region)(classified, subject_id)
+            cruise = delayed(self.cruise_extraction)(cortex, subject_id)
+            depth_est = delayed(self.volumetric_layering)(cruise, subject_id)
+            self.delays[subject_id] = depth_est
+
+        # Init dask.bag
         if split:
             self.bag = self.bag.map(lambda result: self.extract_region(result[0], result[1])) \
                 .map(lambda result: self.cruise_extraction(result[0], result[1])) \
