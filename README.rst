@@ -24,7 +24,7 @@ In order to run the pipelines, you will need to install:
 Docker
 ======
 
-You can try quickly by running a docker image built with Jupyter Python Notebook.
+You can try quickly by running a docker image built with Jupyter Notebook.
 This docker image is built based on an docker image in which Nighres is installed.
 You can run with this Nighres version, or use your own Nighres docker image by replacing
 <dzungdohoang/nighres:latest> with your image.
@@ -45,6 +45,6 @@ to import pipelines by entering::
 into the first cell of your notebook.
 
 Use your own data input by granting data folder access to docker image by running image with `-v` option
-Then you can write your code to load the input data as the input of pipelines.
+Then you can write your code to load the input data as the input of pipelines.::
 
     docker run --rm -v /home/me/my_data:/data -p 8888:8888 pipelines
