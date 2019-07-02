@@ -1,8 +1,6 @@
 import os
 import nighres
-import dask
 import dask.bag as db
-import dask.delayed as delayed
 from abc import ABC, abstractmethod
 
 
@@ -12,66 +10,58 @@ class Pipeline(ABC):
     # Location of the output
     OUTPUT_DIR = 'data/output/'
 
-    def __init__(self, subjects, split=True, save_data=True, overwrite=False, return_filename=True):
+    def __init__(self, subjects, split=True, save_data=True, overwrite=False):
         self.subjects = subjects
         self.split = split
         self.save_data = save_data
         self.overwrite = overwrite
-        self.return_filename = return_filename
         self.bag = db.from_sequence(self.subjects)
-        self.delays = {}
 
     @abstractmethod
-    def combine(self, subject, subject_id):
+    def combine(self, subject):
         """ Combine all steps in this pipeline.
 
-        :param subject: subject image object or file names
-        :param subject_id: id of the subject, used for tracking
-        :param save_data: save data to file or not
-        :param overwrite: overwrite existing files or not
-        :param return_filename: True if return file names instead of objects
+        :param subject: dictionary of image objects or file names and subject id
         :return: (tissue_classified_images, subject_id)
         """
         return None
 
-    def compute_bag(self):
+    def compute(self):
         return self.bag.compute()
-
-    def compute_delayed(self):
-        delays = self.delays.values()
-        return dask.compute(*delays)
 
 
 class Classification(Pipeline):
     """Create a brain tissue classification pipeline using Dask."""
 
-    def __init__(self, subjects, split=True, save_data=True, overwrite=False, return_filename=True):
+    def __init__(self, subjects, split=True, save_data=True, overwrite=False):
+        """Constructor to init pipelines.
 
-        Pipeline.__init__(self, subjects, split, save_data, overwrite, return_filename)
+        :param save_data: save data to file or not
+        :param overwrite: overwrite existing files or not
+        """
 
-        # Init dask.delayed
-        for subject in subjects:
-            subject_id = subject['subject_id']
+        Pipeline.__init__(self, subjects, split, save_data, overwrite)
 
-            stripping = delayed(self.skull_stripping)(subject, subject_id)
-            segmented = delayed(self.segmentation)(stripping, subject_id)
-            self.delays[subject_id] = segmented
-
-        # Init dask.bag
         if split:
-            self.bag = self.bag.map(lambda subject: self.skull_stripping(subject, subject['subject_id'])) \
-                .map(lambda result: self.segmentation(result[0], result[1]))
+            self.bag = self.bag.map(self.skull_stripping) \
+                .map(self.segmentation)
 
         else:
-            self.bag = self.bag.map(lambda subject: self.combine(subject, subject['subject_id']))
+            self.bag = self.bag.map(lambda subject: self.combine(subject))
 
-    def skull_stripping(self, subject, subject_id):
+    def skull_stripping(self, subject_data):
         """ Call to nighres.skull_stripping function.
 
-        :param subject: subject image object or file names
-        :param subject_id: id of the subject, used for tracking
-        :return: (skull_stripped_images, subject_id)
+        :param subject_data: dictionary of image objects or file names and subject id
+        :return: {
+            'images': skullstripping_results,
+            'subject_id': subject_id
+        }
         """
+
+        subject = subject_data['images']
+        subject_id = subject_data['subject_id']
+
         classification_out_dir = os.path.join(os.getcwd(),
                                               '{0}{1}/tissue_classification'.format(self.OUTPUT_DIR, subject_id))
         skullstripping_results = nighres.brain.mp2rage_skullstripping(
@@ -81,18 +71,26 @@ class Classification(Pipeline):
             save_data=self.save_data,
             overwrite=self.overwrite,
             file_name=subject_id,
-            output_dir=classification_out_dir,
-            return_filename=self.return_filename)
+            output_dir=classification_out_dir)
 
-        return skullstripping_results, subject_id
+        return {
+            'images': skullstripping_results,
+            'subject_id': subject_id
+        }
 
-    def segmentation(self, stripped_img, subject_id):
+    def segmentation(self, stripped_output):
         """Call to nighres.mgdm_segmentation function.
 
-        :param stripped_img: subject image object or file names
-        :param subject_id: id of the subject, used for tracking
-        :return: (tissue_classified_images, subject_id)
+        :param stripped_output: dictionary of skull stripped images or file names and subject id
+        :return: {
+            'images': mgdm_results,
+            'subject_id': subject_id
+        }
         """
+
+        stripped_img = stripped_output['images']
+        subject_id = stripped_output['subject_id']
+
         classification_out_dir = os.path.join(os.getcwd(),
                                               '{0}{1}/tissue_classification'.format(self.OUTPUT_DIR, subject_id))
         mgdm_results = nighres.brain.mgdm_segmentation(
@@ -103,51 +101,65 @@ class Classification(Pipeline):
             save_data=self.save_data,
             overwrite=self.overwrite,
             file_name=subject_id,
-            output_dir=classification_out_dir,
-            return_filename=self.return_filename)
+            output_dir=classification_out_dir)
 
-        return mgdm_results, subject_id
+        # Return file name instead of objects to make it available input of extracting brain region
+        if not isinstance(mgdm_results['segmentation'], str):
+            image_files = {
+                'segmentation': mgdm_results['segmentation'].get_filename(),
+                'labels': mgdm_results['labels'].get_filename(),
+                'memberships': mgdm_results['memberships'].get_filename(),
+                'distance': mgdm_results['distance'].get_filename()
+            }
+        else:
+            image_files = mgdm_results
 
-    def combine(self, subject, subject_id):
-        skullstripping_result = self.skull_stripping(subject, subject_id)
-        mgdm_result = self.segmentation(skullstripping_result)
+        return {
+            'images': image_files,
+            'subject_id': subject_id
+        }
 
-        return mgdm_result, subject_id
+    def combine(self, subject):
+
+        subject_id = subject['subject_id']
+
+        skullstripping_output = self.skull_stripping(subject)
+        mgdm_result = self.segmentation(skullstripping_output)
+
+        return {
+            'images': mgdm_result,
+            'subject_id': subject_id
+        }
 
 
 class CortexDepthEst(Classification):
     """Create a cortex depth estimation pipeline using Dask."""
 
-    def __init__(self, subjects, split=True, save_data=True, overwrite=False, return_filename=True):
-        Classification.__init__(self, subjects, split, save_data, overwrite, return_filename)
-
-        # Init dask.delayed
-        for subject in subjects:
-            subject_id = subject['subject_id']
-
-            classified = self.delays[subject_id]
-            cortex = delayed(self.extract_region)(classified, subject_id)
-            cruise = delayed(self.cruise_extraction)(cortex, subject_id)
-            depth_est = delayed(self.volumetric_layering)(cruise, subject_id)
-            self.delays[subject_id] = depth_est
+    def __init__(self, subjects, split=True, save_data=True, overwrite=False):
+        Classification.__init__(self, subjects, split, save_data, overwrite)
 
         # Init dask.bag
         if split:
-            self.bag = self.bag.map(lambda result: self.extract_region(result[0], result[1])) \
-                .map(lambda result: self.cruise_extraction(result[0], result[1])) \
-                .map(lambda result: self.volumetric_layering(result[0], result[1]))
+            self.bag = self.bag.map(self.extract_region) \
+                .map(self.cruise_extraction) \
+                .map(self.volumetric_layering)
 
         else:
-            self.bag = self.bag.map(lambda subject: self.combine(subject, subject['subject_id']))
+            self.bag = self.bag.map(self.combine)
         pass
 
-    def extract_region(self, classified_tissue, subject_id):
+    def extract_region(self, classified_data):
         """Call to nighres.extract_brain_region function.
 
-        :param classified_tissue: tissue classification output
-        :param subject_id: id of the subject, used for tracking
-        :return: (cortex_images, subject_id)
+        :param classified_data: dictionary of classification output images or file names and subject id
+        :return: {
+            'images': cortex,
+            'subject_id': subject_id
+        }
         """
+
+        classified_tissue = classified_data["images"]
+        subject_id = classified_data["subject_id"]
 
         segmentation = classified_tissue['segmentation']
         boundary_dist = classified_tissue['distance']
@@ -172,15 +184,24 @@ class CortexDepthEst(Classification):
                                                     file_name='{0}_left_cerebrum'.format(subject_id),
                                                     output_dir=cortex_depth_out_dir)
 
-        return cortex, subject_id
+        return {
+            'images': cortex,
+            'subject_id': subject_id
+        }
 
-    def cruise_extraction(self, cortex, subject_id):
+    def cruise_extraction(self, cortex_output):
         """Call to nighres.cruise_cortex_extraction function.
 
-        :param cortex: extracted cortex images
-        :param subject_id: id of the subject, used for tracking
-        :return: (cruise_images, subject_id)
+        :param cortex_output: dictionary of extracting brain region output images or file names and subject id
+        :return: {
+            'images': cruise,
+            'subject_id': subject_id
+        }
         """
+
+        cortex = cortex_output["images"]
+        subject_id = cortex_output["subject_id"]
+
         cortex_depth_out_dir = os.path.join(os.getcwd(),
                                             '{0}{1}/cortical_depth_estimation'.format(self.OUTPUT_DIR, subject_id))
 
@@ -195,15 +216,24 @@ class CortexDepthEst(Classification):
             file_name="{0}_left_cerebrum".format(subject_id),
             output_dir=cortex_depth_out_dir)
 
-        return cruise, subject_id
+        return {
+            'images': cruise,
+            'subject_id': subject_id
+        }
 
-    def volumetric_layering(self, cruise, subject_id):
+    def volumetric_layering(self, cruise_output):
         """Call to nighres.volumetric_layering function.
 
-        :param cruise: extracted cortex images
-        :param subject_id: id of the subject, used for tracking
-        :return: (depth_estimation_images, subject_id)
+        :param cruise_output: dictionary of cruise extraction output images or file names and subject id
+        :return: {
+            'images': depth,
+            'subject_id': subject_id
+        }
         """
+
+        cruise = cruise_output["images"]
+        subject_id = cruise_output["subject_id"]
+
         cortex_depth_out_dir = os.path.join(os.getcwd(),
                                             '{0}{1}/cortical_depth_estimation'.format(self.OUTPUT_DIR, subject_id))
 
@@ -216,11 +246,18 @@ class CortexDepthEst(Classification):
             file_name="{0}_left_cerebrum".format(subject_id),
             output_dir=cortex_depth_out_dir)
 
-        return depth
+        return {
+            'images': depth,
+            'subject_id': subject_id
+        }
 
-    def combine(self, classified_tissue, subject_id):
-        cortex = self.extract_region(classified_tissue, subject_id)
-        cruise = self.cruise_extraction(cortex, subject_id)
-        depth = self.volumetric_layering(cruise, subject_id)
+    def combine(self, classified_tissue):
 
-        return depth, subject_id
+        cortex = self.extract_region(classified_tissue)
+        cruise = self.cruise_extraction(cortex)
+        depth = self.volumetric_layering(cruise)
+
+        return {
+            'images': depth,
+            'subject_id': classified_tissue['subject_id']
+        }
