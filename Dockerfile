@@ -9,6 +9,7 @@ RUN python3 -m pip install dask && \
 
 COPY pipelines /home/neuro/pipelines
 COPY example.py /home/neuro
+COPY example.ipynb /home/neuro
 
 RUN cd /home/neuro
 

@@ -5,6 +5,7 @@ Neuroimaging pipelines with Nighres and Dask
 
 Dask is a Python library for parallel computing. It provides a set of big data collections that extends NumPy, Pandas
 such as dask.array, dask.bag, dask.dataframe and task schedulers for computation.
+
 https://docs.dask.org/
 
 The source code implements some examples of neuroimaging pipelines using Dask for scheduling Nighres processing tasks.

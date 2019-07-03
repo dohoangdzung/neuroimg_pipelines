@@ -11,6 +11,17 @@ class Pipeline(ABC):
     OUTPUT_DIR = 'data/output/'
 
     def __init__(self, subjects, split=True, save_data=True, overwrite=False):
+        """
+        Create a new pipeline object
+        :param subjects: a dictionary container subject image data and subject id for tracking.
+        Every dictionary object containing subject data must be in format:
+         {'images': <dictionary of images>,
+          'subject_id': subject id}
+        :param split: split pipeline into steps
+        :param save_data: save_data save data into files or not, used as the input of Nighres functions
+        :param overwrite: overwrite existing files or not, used as the input of Nighres functions
+        """
+
         self.subjects = subjects
         self.split = split
         self.save_data = save_data
@@ -22,7 +33,10 @@ class Pipeline(ABC):
         """ Combine all steps in this pipeline.
 
         :param subject: dictionary of image objects or file names and subject id
-        :return: (tissue_classified_images, subject_id)
+        :return: {
+            'images': mgdm_results,
+            'subject_id': subject_id
+        }
         """
         return None
 
