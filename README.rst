@@ -28,7 +28,7 @@ Docker
 You can try quickly by running a docker image built with Jupyter Notebook.
 This docker image is built based on an docker image in which Nighres is installed.
 You can run with this Nighres version, or use your own Nighres docker image by replacing
-<dzungdohoang/nighres:latest> with your image.
+<dzungdohoang/nighres:latest> on the first line of the dockerfile with your image.
 
 To build the Docker image, do the following::
 
@@ -36,7 +36,7 @@ To build the Docker image, do the following::
 
 To run the Docker container::
 
-    docker run --rm -p 8888:8888 pipelines
+    docker run -p 8888:8888 pipelines
 
 Now go with your browser to https://localhost:8888 to start a notebook. You should be able
 to import pipelines by entering::
@@ -48,4 +48,4 @@ into the first cell of your notebook.
 Use your own data input by granting data folder access to docker image by running image with `-v` option
 Then you can write your code to load the input data as the input of pipelines.::
 
-    docker run --rm -v /home/me/my_data:/data -p 8888:8888 pipelines
+    docker run -v /home/me/my_data:/data -p 8888:8888 pipelines
