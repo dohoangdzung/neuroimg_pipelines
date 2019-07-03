@@ -55,5 +55,5 @@ Binder
 
 Or try a tutorial on Binder:
 
-.. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/dohoangdzung/neuroimg_pipelines/master?urlpath=https%3A%2F%2Fgithub.com%2Fdohoangdzung%2Fneuroimg_pipelines%2Fblob%2Fmaster%2Fexample.ipynb
+.. image:: https://binder.conp.cloud/badge_logo.svg
+ :target: https://binder.conp.cloud/v2/gh/dohoangdzung/neuroimg_pipelines/master?filepath=example.ipynb
